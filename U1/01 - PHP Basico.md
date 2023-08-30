@@ -197,5 +197,135 @@ El bucle `for` en PHP es una estructura de control que te permite ejecutar un bl
     };
 ?>
 ```
-## tarea ##
-Hacer que se muestre el arreglo asociativo con un for-each
+# for-each
+En PHP, un bucle `foreach` se utiliza para iterar sobre cada elemento de una matriz (array) o una colección iterable, como un objeto `stdClass` o una instancia de una clase que implementa la interfaz `Traversable`. Proporciona una forma más sencilla y legible de recorrer los elementos en comparación con un bucle `for` tradicional.
+```php
+<?php
+
+    $persona = [
+        "nombre" => "Brayan",
+        "edad" => 22,
+        "direccion" => [
+            "ciudad" => "CDMX",
+            "alcaldia" => "Milpa Alta",
+            "poblado" => "Tecomitl"
+        ]
+    ];
+
+    foreach ($persona as $clave => $valor) {
+        if (is_array($valor)) {
+            echo "$clave:<br>";
+            foreach ($valor as $subclave => $subvalor) {
+                echo "&nbsp;&nbsp;$subclave: $subvalor<br>";
+            }
+        } else {
+            echo "$clave: $valor<br>";
+        }
+    }
+?>
+```
+# funciones 
+Las funciones son bloques de código que se pueden definir y reutilizar para realizar tareas específicas. Estas funciones ayudan a organizar y modularizar el código, lo que facilita el mantenimiento y la legibilidad.
+```php
+<?php
+
+    function saludar($nombre,$apellido){
+        return "Hola ". $nombre." ".$apellido;
+    }
+    print(saludar("Brayan","Solis"));
+?>
+```
+# clases
+Las clases son la base de la programación orientada a objetos (POO) y permiten definir estructuras que encapsulan datos y comportamientos relacionados.
+```php
+<?php
+
+	class Persona {
+	    public $nombre;
+	    public $apellido;
+	    public $edad;
+	
+	    public function __construct($nombre, $apellido, $edad) {
+	        $this->nombre = $nombre;
+	        $this->apellido = $apellido;
+	        $this->edad = $edad;
+	    }
+	}
+	
+	class Alumno {
+	    public $matricula;
+	    public $nombre;
+	    public $apellido;
+	    public $edad;
+	
+	    public function __construct($matricula, $nombre, $apellido, $edad) {
+	        $this->matricula = $matricula;
+	        $this->nombre = $nombre;
+	        $this->apellido = $apellido;
+	        $this->edad = $edad;
+	    }
+	
+	    public function reprobar($materia) {
+	        return "Reprobaste: " . $materia;
+	    }
+	
+	    public function aprobar($materia, $calificacion) {
+	        return "Aprobaste: " . $materia . " con: " . $calificacion;
+	    }
+	}
+	
+	$alumnos = new Alumno(191190104, "Brayan", "Solis", 22);
+	$parker = new Persona("Brayan", "Solis", 22);
+	
+	echo "<pre>";
+	print_r($parker);
+	print_r($alumnos);
+	print_r($alumnos->aprobar("POO", 70));
+	echo "</pre>";
+
+?>
+```
+# encapsulamiento
+El encapsulamiento es un concepto fundamental en la programación orientada a objetos (POO) y se refiere a la práctica de ocultar los detalles internos de una clase mientras se proporciona una interfaz controlada para interactuar con ella. En el contexto de PHP y la POO, el encapsulamiento se logra utilizando modificadores de acceso y métodos para definir cómo se accede y se modifica el estado de los objetos.
+```php
+<?php
+    
+	class Producto {
+	    protected $nombre;
+	    protected $precio;
+	    protected $caducidad;
+	
+	    public function __construct($nombre, $precio, $caducidad) {
+	        $this->nombre = $nombre;
+	        $this->precio = $precio;
+	        $this->caducidad = $caducidad;
+	    }
+	
+	    public function obtenerProducto($nombre) {
+	        if ($nombre == $this->nombre) {
+	            return "Producto: " . $this->nombre . " Precio: " . $this->precio;
+	        } else {
+	            return "El producto no existe";
+	        }
+	    }
+	}
+	
+	$galletas = new Producto("Principe", 20, "29/03/2024");
+	
+	echo "<pre>";
+	print_r($galletas);
+	print "<br>";
+	print_r($galletas->obtenerProducto("Marias"));
+	print "<br>";
+	print_r($galletas->obtenerProducto("Principe"));
+	echo "</pre>";
+
+?>
+```
+En PHP, hay tres modificadores de acceso que se utilizan para controlar el encapsulamiento en una clase:
+
+1. **public**: Los miembros (propiedades y métodos) marcados como públicos son accesibles desde cualquier lugar, tanto desde dentro de la clase como desde fuera de ella.
+    
+2. **protected**: Los miembros protegidos son accesibles desde dentro de la clase y también desde las clases que heredan de ella. Sin embargo, no se pueden acceder desde fuera de estas clases.
+    
+3. **private**: Los miembros privados solo son accesibles desde dentro de la clase en la que se definen. No se pueden acceder ni modificar desde fuera de esa clase ni desde clases que heredan de ella.
